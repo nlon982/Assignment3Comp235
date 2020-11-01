@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<main id="main">
+    <header>
+        <h1>{{date}}</h1>
+    </header>
+
+    <div style="clear:both">
+        <h2>Search:</h2>
+        <div class="form-wrapper">
+            <form action="{{handler_url}}" method="post">
+                {{form.csrf_token}} <!-- Need to include this token - Flask WTForms requires it. -->
+                <br>
+                <div class ="form-field">{{form.actor_full_name.label}} </br>{{form.actor_full_name(size = 100, placeholder="please type ONE actor's full name (case sensitive) or leave empty for all", class="textarea", cols="50", rows="6", wrap="hard")}}
+                    {% if form.actor_full_name.errors %}
+                        <ul class="errors">
+        	            {% for error in form.actor_full_name.errors %}
+        		            <li>{{error}}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class ="form-field">{{form.director_full_name.label}} </br>{{form.director_full_name(size = 100, placeholder="please type ONE director's full name (case sensitive) or leave empty for all", class="textarea", cols="50", rows="6", wrap="hard")}}
+                    {% if form.director_full_name.errors %}
+                        <ul class="errors">
+        	            {% for error in form.director_full_name.errors %}
+        		            <li>{{error}}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class ="form-field">{{form.genre_name.label}} </br>{{form.genre_name  (size = 100, placeholder="please type ONE genre's name (case sensitive) or leave empty for all", class="textarea", cols="50", rows="6", wrap="hard")}}
+                    {% if form.genre_name.errors %}
+                        <ul class="errors">
+        	            {% for error in form.genre_name.errors %}
+        		            <li>{{error}}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit }}
+            </form>
+        </div>
+    </article>
+</main>
+{% endblock %}

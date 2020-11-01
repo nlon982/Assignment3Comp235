@@ -1,0 +1,136 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<main id="main">
+    <header id="article-header">
+        <h1>{{ articles_title }}</h1>
+    </header>
+
+    <table style = "width:100%;">
+        <tr>
+            <td>
+                <div style="float:left">
+                    {% if first_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{first_page_url}}'">First</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>First</button>
+                    {% endif %}
+                    {% if prev_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{prev_page_url}}'">Previous</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>Previous</button>
+                    {% endif %}
+                </div>
+            </td>
+            <td>
+                <div style="float:right">
+                    {% if next_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{next_page_url}}'">Next</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>Next</button>
+                    {% endif %}
+                    {% if last_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{last_page_url}}'">Last</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>Last</button>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    {% for a_movie_dict in movie_dict_list %}
+            <article id="article">
+                <table id = "movie_item">
+                    <tr>
+                        <td>
+                            <h2>
+                                {{ a_movie_dict.title }} ({{a_movie_dict.release_year }})
+                            </h2>
+                            <p id = "description">
+                                {{ a_movie_dict.description }} </td>
+                            </p>
+                        </td>
+                        <td style="width: 200px;"> Runtime: {{ a_movie_dict.runtime_minutes }} minutes </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p> Genres: {{ a_movie_dict.genres }} </p>
+                                        <p> Director: {{ a_movie_dict.director }} </p>
+                                        <p> Actors: {{ a_movie_dict.actors }} </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td> External Rating: {{ a_movie_dict.external_rating }} </td>
+                                </tr>
+                                <tr>
+                                    <td> Metascore: {{ a_movie_dict.metascore }} </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px">
+                            <h1 style ="text-align: left"> Reviews </h1>
+                            <div style="clear:both">
+                                {% if a_movie_dict.review_list|length == 0 %}
+                                    <p> There are no reviews yet. Be the first! </p>
+                                {% endif %}
+                                {% for a_review in a_movie_dict.review_list %}
+                                    <p>"{{a_review.review_text}}", rating: {{a_review.rating}} / 10. By: {{a_review.user_name}} ({{a_review.timestamp}})</p>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px">
+                            <div style="vertical-align: middle; height: 50px;">
+                                <button class="btn-general" onclick="location.href='{{ a_movie_dict.add_review_url }}'">Add Review</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </article>
+    {% endfor %}
+
+    <table style = "width:100%;">
+        <tr>
+            <td>
+                <div style="float:left">
+                    {% if first_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{first_page_url}}'">First</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>First</button>
+                    {% endif %}
+                    {% if prev_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{prev_page_url}}'">Previous</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>Previous</button>
+                    {% endif %}
+                </div>
+            </td>
+            <td>
+                <div style="float:right">
+                    {% if next_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{next_page_url}}'">Next</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>Next</button>
+                    {% endif %}
+                    {% if last_page_url is not none %}
+                        <button class="btn-navigation" onclick="location.href='{{last_page_url}}'">Last</button>
+                    {% else %}
+                        <button class="btn-navigation-disabled" disabled>Last</button>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</main>
+{% endblock %}
